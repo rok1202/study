@@ -1,0 +1,68 @@
+ssh-keygen -t rsa 
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys 
+ssh localhost 
+exit
+
+동일 데이터를 기반으로 한 알고리즘 테스트
+1. 데이터 라벨링이 있는 데이터를 확보
+2. 규모 필요(MB)
+3. 지도/비지도/강화/신경망 관련 알고리즘(기법)을 조사
+4. 동일 데이터를 기반으로 위 조사된 모든 기법들을 적용 필요
+
+데이터 전처리
+ 1. 불완전 데이터 (반드시 동일한 데이터로 가능한)
+ 2. 전처리 기법 적용
+
+어노테이션 도구(데이터 저작 도구)
+https://m.blog.naver.com/PostView.nhn?blogId=jws2218&logNo=221922574525&categoryNo=1&proxyReferer=https:%2F%2Fwww.google.com%2F
+
+실습
+1. 웹 크롤링
+Python) 파이썬 BeautifulSoup4를 이용해 웹 크롤링 예제 만들어 보기
+https://h-glacier.tistory.com/entry/Python-%ED%8C%8C%EC%9D%B4%EC%8D%AC-BeautifulSoup4%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%B4-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%A7%81-%EC%98%88%EC%A0%9C-%EB%A7%8C%EB%93%A4%EC%96%B4-%EB%B3%B4%EA%B8%B0
+
+[python] 파이썬 크롤링 (네이버 실시간 검색어)
+https://blockdmask.tistory.com/385
+
+(Web Crawling) - 검색결과에 따른 크롤링
+https://khs9628.github.io/2019/09/29/Crawling3/#%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%A7%81-Web-Crawling-3-%EA%B2%80%EC%83%89%EA%B2%B0%EA%B3%BC%EC%97%90-%EB%94%B0%EB%A5%B8-%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%81%AC%EB%A1%A4%EB%A7%81
+
+Naver 급상승 검색어 크롤링
+https://khs9628.github.io/2019/09/29/Crawling3/#%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%9B%B9-%ED%81%AC%EB%A1%A4%EB%A7%81-Web-Crawling-3-%EA%B2%80%EC%83%89%EA%B2%B0%EA%B3%BC%EC%97%90-%EB%94%B0%EB%A5%B8-%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%81%AC%EB%A1%A4%EB%A7%81
+
+2. 크롤링 데이터 CSV 파일로 저장
+3. CSV 파일 MariaDB에 저장
+3-1 크롤링한 데이터 DB에 저장하기
+https://hyun-am-coding.tistory.com/entry/%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-DB%EC%97%90-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0
+
+4. 저장된 DB 데이터 CSV 파일로 저장
+5. csv 파일 logstash로 저장하여 ELK 스택으로
+
+6. 크롤링 데이터를 logstash를 이용하여 실시간으로 저장 - 키바나에서 확인
+7. 데이터베이스에서 logstash를 통해서 elasticsearch 혹은 elasticsearch, 혹은 hadoop 
+
+MariaDB connect시에 
+db = MySQLdb.connect(db="data", host="localhost", user="root", passwd="***")<==추가 port, charset 반드시
+# 인수 지정가능한것은 다음과 같다. 
+# host, user, passwd, db, port, unix_socket, conv, connect_timeout, compress, named_pipe, init_command, read_default_file, read_default_group, cursorclass, use_unicode, charset, sql_mode, client_flag, ssl, local_infile
+
+logstash에서 Mariadb 데이터 input으로 설정하여 Elasticsearch에 저장
+https://joypinkgom.tistory.com/232
+
+virtualbox -> 설정 -> 네트워크 -> NAT를 host전용 어댑터를 선택하고
+ip addr로 IP를 확인하시고 (예전처럼 10..이면 재부팅 이후 반드시 IP 확인)
+
+putty 설치 및 다운로드 (telnet과 유사하지만 putty 접속할때 ssh를 선택해서 접속가능)
+ssh를 윈도우에서 리눅스로 접속해서 터미널로 작업 가능(winssh로 있음)
+winscp(윈도우에서 리눅스로 파일 전송) 프로그램을 다운로드 및 설치하시고 실행하시면 됨
+
+putty 혹은 winscp는 호스트에 리눅스 IP 그리고 계정명에 root 비밀번호
+
+pycaret
+
+
+
+
+
+
+

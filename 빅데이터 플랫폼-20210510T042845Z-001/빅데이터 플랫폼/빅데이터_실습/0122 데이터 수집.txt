@@ -1,0 +1,119 @@
+
+man ls
+반드시 삭제 필요 .file.swp .file.swo
+stty -a
+ls -l
+d
+-
+cd /dev
+ls -l
+
+cd /proc/sys 디렉토리의 값
+ => /etc/sysctl.conf
+ => sysctl -a
+
+cd /proc/sys/net/ipv4
+ls ip_forward
+cat ip_forward
+
+node.js
+websocket
+
+cd /tmp
+du -sh .
+ls
+=> network socket 파일이 존재하는 경우가 있슴
+/usr/share/ 어플리케이션
+cd /usr/share/logstash
+
+1. 특정 로그를 logstash를 통해서 분류해서 별도의 인덱스로 저장
+ 1) input
+  - ERROR/INFO/WARN 특정 키워드를 중심으로 케이스를 만들고
+ 2) filter
+  - 각 케이스별 데이터(로그)의 필드를 조작/변형하시고
+ 3) output
+  - 각 분류별로 별도의 인덱스를 생성하도록 설정
+
+홈디렉토리
+ - /root
+ - /home/계정명 디렉토리
+ 
+cd 엔터
+stat .bashrc
+
+touch aa
+ls -l aa
+cp /etc/passwd /root
+ls -l passwd
+touch passwd
+ls -l passwd
+date
+
+ps aux | less
+
+man ps 
+
+RUNNING
+- READY 상태
+- RUN
+
+ps -ef
+ps aux
+
+cd
+time ls
+
+NScreen
+
+top
+ps
+
+/proc
+
+strace ps aux | less
+strace ls
+
+hadoop 3.1.1
+zk 3.5.6
+hadoop 다운로드 및 설치
+환경구축(환경 변수 포함)
+실행(하나의 시스템에서)
+jps 확인
+- namenode
+- secondary name node
+- resource manager
+- datanode
+- zookeeper
+
+word count 예제
+ - 사이트를 따라서 진행
+ - /var/log/messages word count
+
+명령어
+hdfs fs 
+ssh-keygen 명령어
+https://newly0513.tistory.com/60
+ssh-keygen -t rsa 엔터
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys 
+ssh localhost 
+exit
+
+.bashrc : 명령어 alias나 혹은 환경변수 중에 시스템 환경변수(HISTSIZE)
+.bash_profile : 어플리케이션 환경 변수 및 PATH 지정
+
+JAVA_HOME
+
+PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+
+export PATH
+
+
+
+
+
+
+
+
+
+
+

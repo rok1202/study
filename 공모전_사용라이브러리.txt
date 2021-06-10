@@ -1,0 +1,53 @@
+* Import
+	-pandas
+	-numppy
+	-warnnings
+	-scipy
+	-matplotlib
+	-scaler
+	-tensorflow (keras, layer)
+
+* Function
+	-numpy		roll()
+			random.choice()
+			random.uniform()
+			random.permutation()
+			reshape()
+			min()
+			array()
+			random.seed()
+			zeros()
+			sort()
+			random.randint()
+			matmul()
+			pi (상수)
+
+	-pandas		read_csv()
+			concat()
+			DataFrame()
+			get_dummies()
+
+	
+
+	-global function	ilo()
+	
+
+
+	-UDF		rolling()
+			rotation()
+			permutation()
+			combine_aug()
+	
+
+	-matplotlib	plot()
+			set_title()
+			show()
+
+	-sklean		StandardScaler.fit()
+			scaler.tansform
+
+	-tensorflow	configproto()
+
+구현 Method : CNN / LSTM 
+병합모델 (기억된 값을 넘겼을 때와 넘기지 않았을 때의 결과를 비교하여 최적의 판단을 하게 됨)
+			

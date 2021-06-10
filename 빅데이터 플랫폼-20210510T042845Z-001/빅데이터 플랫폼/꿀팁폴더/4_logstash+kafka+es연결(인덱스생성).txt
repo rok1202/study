@@ -1,0 +1,98 @@
+☆★작성자: 양재옥★☆
+
+
+!logstash -> kafka단계!
+==========================================
+1. zookeeper 시행
+zkServer.sh start
+
+2. kafka 실행(kafka/bin/ 폴더로 이동해서 실행)
+./kafka-server-start.sh ../config/server.properties
+
+3. topic 생성(qwerty라는 topic 생성) 후 확인(kafka/bin/ 폴더로 이동해서 실행)
+./kafka-topics.sh --create --zookeeper hadoop01:2181 --replication-factor 1 --partitions 1 --topic qwerty
+./kafka-topics.sh --list --zookeeper hadoop01:2181
+
+4. logstash conf 파일 생성(logstash -> kafka)(파일명: qwerty.conf)
+vi /etc/logstash/conf.d/qwerty.conf
+-----------------------------------------
+input {
+  file {
+    path => "/usr/share/csv/bitcoin.csv"
+    start_position => "beginning"
+    sincedb_path => "/dev/null"
+  }
+}
+filter {
+}
+output {
+  kafka {
+    codec => json
+    topic_id => "qwerty"
+  }
+  stdout {}
+}
+-----------------------------------------
+
+5. logstash pipelines.yml에 설정 추가
+vi /etc/logstash/pipelines.yml
+-----------------------------------------
+- pipeline.id: qwerty
+  path.config: "/etc/logstash/conf.d/qwerty.conf"
+-----------------------------------------
+
+6. logstash 재시작
+systemctl restart logstash
+
+7. kafka에서 consumer 메시지 확인(kafka/bin/ 폴더로 이동해서 실행)
+./kafka-console-consumer.sh  --bootstrap-server hadoop01:9092 --topic qwerty --from-beginning
+
+
+
+!kafka -> ES 단계!
+==========================================
+8. logstash conf 파일 생성
+vi /etc/logstash/conf.d/qwertyTest.conf
+------------------------------------------
+input {
+  kafka {
+    bootstrap_servers => "localhost:9092"
+    group_id => "logstash"
+    topics => ["qwerty"]
+    consumer_threads => 1
+    decorate_events => true
+  }
+}
+filter {
+}
+output {
+  elasticsearch {
+    action => "index"
+    hosts => ["127.0.0.1:9200"]
+    index => "qwerty"
+  }
+  stdout {
+    codec => rubydebug
+  }
+}
+------------------------------------------
+
+9.logstash pipelines.yml에 설정 추가
+vi /etc/logstash/pipelines.yml
+------------------------------------------
+- pipeline.id: qwertyTest
+  path.config: "/etc/logstash/conf.d/qwertyTest.conf"
+------------------------------------------
+
+10. logstash 재시작
+systemctl restart logstash
+
+11. elasticsearch index 확인
+curl localhost:9200/_cat/indices?v
+
++ 인덱스가 확인이 안될경우 reboot 한 뒤
+hadoop -> zookeeper -> kafka -> elasticsearch -> logstash -> kibana 순으로 재시작 후 다시 확인....
+
+12. 인덱스가 확인되면 firefox에서 kibana(localhost:5601) 접속하여 create index 부분에서 확인
+
+

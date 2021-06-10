@@ -1,0 +1,224 @@
+☆★작성자: 양재옥★☆
+
+
+1. elasticsearch 설치
+1-1) java 버전 확인
+java -version
+
+1-2) rpm으로 elastic설치
+rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+vi /etc/yum.repo.d/elasticsearch.repo
+------------------------------------------
+[elasticsearch]
+name=Elasticsearch repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=0
+autorefresh=1
+type=rpm-md
+------------------------------------------
+yum install --enablerepo=elasticsearch elasticsearch
+
+1-3) elasticsearch 환경설정
+vi /etc/elasticsearch/elasticsearch.yml
+(Network 부분의 network.host와 http.port 주석해제: 55, 59줄)
+
+1-4) elasticsearch 서비스 시작 후 서비스 확인
+systemctl start elasticsearch
+curl http://127.0.0.1:9200
+
+
+
+2. kibana 설치
+2-1) rpm으로 kibana 설치
+rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+vi /etc/yum.repos.d/kibana.repo 
+------------------------------------------
+[kibana-7.x]
+name=Kibana repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+------------------------------------------
+yum install kibana
+
+2-2) kibana 환경설정
+vi /etc/kibana/kibana.yml
+(2번줄: server.port,
+ 7번줄: server.host,
+ 28번줄: elasticsearch.hosts
+ 내용들 주석 제거)
+
+2-3) kibana 서비스 시작 후 서비스 확인
+systemctl start kibana
+(firefox 실행하여) http://localhost:5601
+
+
+
+3. logstash 설치
+3-1) rpm으로 logstash 설치
+rpm --import https://artifaccts.elastic.co/GPG-KEY-elasticsearch
+vi /etc/yum.repos.d/logstash.repo
+------------------------------------------
+[logstash-7.x]
+name=Elastic repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+------------------------------------------
+yum install logstash
+
+3-2) logstash conf파일 생성
+vi /etc/logstash/conf.d/first-pipeline.conf
+------------------------------------------
+input {
+  beats {
+    port => 5044
+    host => “0.0.0.0”
+  }
+}
+
+filter {
+  if [system][process] {
+    if [system][process][cmdline] {
+      grok {
+        match => {
+          "[system][process][cmdline]" => "^%{PATH:[system][process][cmdline_path]}"
+        }
+        remove_field => "[system][process][cmdline]"
+      }
+    }
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => "localhost:9200"
+    manage_template => false
+    index => "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+  }
+}
+------------------------------------------
+
+3-3) logstash 서비스 시작
+systemctl start logstash
+
++filebeat가 설치되었다면 아래 명령어로 서비스 확인 가능
+netstat -anpt | grep 5044
+
+
+4. filebeat 설치
+4-1) yum으로 filebeat 설치
+yum install filebeat
+
+4-2) filebeat 환경설정
+vi /etc/filebeat/filebeat.yml
+(Outputs의 elasticsearch를 주석처리하고, ㄱ그 아래 logstash 부분의 "output.logstash:"와 "hosts"부분 주석 해제)
+
+4-3) filebeat 모듈 리스트 활성화 후 리스트 확인
+filebeat modules enable system
+filebeat modules list
+
+
+5. elasticsearch + logstash + kibana + filebeat 서비스 시작 후 확인
+5-1) 모든 서비스 재시작
+systemctl restart elasticsearch
+systemctl restart logstash
+systemctl restart kibana
+systemctl restart filebeat
+
+5-2) index 추가 확인
+curl localhost:9200/_cat/indices?v
+(firefox 실행하여) http://localhost:5601 접속
+management > (kibana) index patterns > create index pattern에서 filebeat-* 입력 후 NEXT! 클릭하여 인덱스 생성
+
+5-3) 시각화확인
+메뉴의 kibana > discover를 선택하여 생성한 인덱스 시각화 확인
+
+
+6. /var/log/messages를 kibana에서 확인하기
+6-1) filebeat.yml 설정
+vi /etc/filebeat/filebeat.yml
+------------------------------------------
+- input 부분 수정사항
+  24번줄 -> enabled: true
+  28번줄 -> /var/log/messages (경로 추가)
+
+- filebeat modules 설정
+  102번줄 -> reload.enabled: true
+
+- kibana host 주석해제
+  152번줄 -> host: "localhost:5601"
+
+- logstash output 주석해제
+  190,192번줄 logstash output 부분
+------------------------------------------
+
+6-2) 서비스 재시작
+systemctl restart elasticsearch
+systemctl restart logstash
+systemctl restart kibana
+systemctl restart filebeat
+
+6-3) kibana에서 인덱스 확인
+
+
+7. elasticsearh에 csv 파일 적재하기
+7-1) csv 파일 다운로드하고 경로 체크
+
+7-2) logstash conf 파일 생성
+vi /etc/logstash/conf.d/facebook.conf
+-----------------------------------------
+input {
+  file {
+    path => "/usr/share/csv/FB.csv"
+    start_position => "beginning"
+    sincedb_path => "/dev/null"
+  }
+}
+filter {
+  csv {
+    separator => ","
+    columns => ["Date", "Open", "High, "Low", "Close", "Volume", "Adj Close"]
+  }
+  mutate { convert => ["Open", float] }
+  mutate { convert => ["High", float] }
+  mutate { convert => ["Low", float] }
+  mutate { convert => ["Close", float] }
+
+  date {
+    match => ["Date", "yyyy-MM-dd"]
+    timezone => "Asia/Seoul"
+    target => ["@timestamp"]
+  }
+}
+output {
+  elasticsearch {
+    hosts => "localhost:9200"
+    index => "facebook"
+  }
+  stdout{}
+}
+------------------------------------------
+
+7-3) logstash pipelines.yml 수정
+vi /etc/logstash/pipelines.yml 에 내용 추가
+------------------------------------------
+- pipeline.id: facebook
+  path.config: "/etc/logstash/conf.d/facebook.conf"
+------------------------------------------
+
+7-4) 서비스 재시작
+systemctl restart elasticsearch
+systemctl restart logstash
+systemctl restart kibana
+systemctl restart filebeat
+
+7-5) kibana 접속하여 인덱스 추가 후 확인

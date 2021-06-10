@@ -1,0 +1,4 @@
+/usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/cctv_logstash.conf
+
+
+/etc/exam_data/cctv.csv

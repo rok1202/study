@@ -1,0 +1,13 @@
+[2장 강의내용]
+
+
+- 기본 SETTING
+[file] -> [setting] -> [Build, Execution, Deployment] 
+[Build and run using] -> intellij IDEA
+[Run tests using] -> intellij IDEA
+
+
+- 비지니스 설계 (구현과 기능을 나누어 설계)
+
+
+- 

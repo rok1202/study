@@ -1,0 +1,60 @@
+※그 전에 작업관리자에서 파이썬 모두 종료!
+
+
+
+(base) C:\Users\Admin>dir
+ C 드라이브의 볼륨에는 이름이 없습니다.
+ 볼륨 일련 번호: B06D-416C
+
+ C:\Users\Admin 디렉터리
+
+2021-03-22  오후 09:25    <DIR>          .
+2021-03-22  오후 09:25    <DIR>          ..
+2021-03-23  오전 08:42    <DIR>          .conda
+2021-03-23  오전 08:37                43 .condarc
+2021-03-22  오후 06:58    <DIR>          .ipynb_checkpoints
+2021-03-17  오전 10:15    <DIR>          .ipython
+2021-03-18  오전 09:12    <DIR>          .jupyter
+2021-03-22  오후 09:25    <DIR>          3D Objects
+2021-03-22  오후 08:51    <DIR>          anaconda3
+2021-03-22  오후 05:20    <DIR>          A_Python
+2021-03-22  오후 09:25    <DIR>          Contacts
+2021-03-22  오후 09:25    <DIR>          Desktop
+2021-03-22  오후 09:25    <DIR>          Documents
+2021-03-22  오후 09:25    <DIR>          Downloads
+2021-03-22  오후 07:06            17,961 exam_01.ipynb
+2021-03-22  오후 09:25    <DIR>          Favorites
+2020-02-13  오전 10:42    <DIR>          Intel
+2015-08-08  오전 05:51         6,952,696 KMSAuto Net.exe
+2021-03-22  오후 09:25    <DIR>          Links
+2021-03-22  오후 09:25    <DIR>          Music
+2021-03-16  오후 02:13    <DIR>          OneDrive
+2021-03-22  오후 09:25    <DIR>          Pictures
+2020-02-13  오후 02:28    <DIR>          Printer Driver
+2020-02-13  오전 10:41    <DIR>          Roaming
+2021-03-22  오후 09:25    <DIR>          Saved Games
+2021-03-22  오후 09:25    <DIR>          Searches
+2021-03-22  오후 06:54                17 test.txt
+2021-03-22  오후 07:05                34 text_test.txt
+2021-03-22  오후 09:25    <DIR>          Videos
+               5개 파일           6,970,751 바이트
+              24개 디렉터리  185,280,237,568 바이트 남음
+
+(base) C:\Users\Admin>cd A_Python
+
+(base) C:\Users\Admin\A_Python>jupyter notebook
+[I 08:44:00.599 NotebookApp] JupyterLab extension loaded from C:\Users\Admin\anaconda3\lib\site-packages\jupyterlab
+[I 08:44:00.599 NotebookApp] JupyterLab application directory is C:\Users\Admin\anaconda3\share\jupyter\lab
+[I 08:44:00.604 NotebookApp] Serving notebooks from local directory: C:\Users\Admin\A_Python
+[I 08:44:00.604 NotebookApp] Jupyter Notebook 6.1.4 is running at:
+[I 08:44:00.605 NotebookApp] http://localhost:8888/?token=6a06c99f99cd7ffbe8f363a72ba70007e3b09147812831b3
+[I 08:44:00.605 NotebookApp]  or http://127.0.0.1:8888/?token=6a06c99f99cd7ffbe8f363a72ba70007e3b09147812831b3
+[I 08:44:00.606 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 08:44:00.662 NotebookApp]
+
+    To access the notebook, open this file in a browser:
+        file:///C:/Users/Admin/AppData/Roaming/jupyter/runtime/nbserver-8236-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/?token=6a06c99f99cd7ffbe8f363a72ba70007e3b09147812831b3
+     or http://127.0.0.1:8888/?token=6a06c99f99cd7ffbe8f363a72ba70007e3b09147812831b3
+[I 08:44:14.393 NotebookApp] Kernel started: f77bf899-fbb7-478f-a57a-bea667c1875f, name: python3

@@ -1,0 +1,8 @@
+안녕하세요. 박해선입니다. 이 영상에서는 핸즈온 머신러닝 2판의 달라진 점에 대해서 소개합니다. 
+본격적으로 책을 공부하기 전에 전체 내용을 조감하는데 도움이 되었으면 좋겠습니다.
+
+핸즈온 머신러닝 2: https://tensorflow.blog/handson-ml2
+깃허브: http://bit.ly/homl2-git
+슬라이드: http://bit.ly/homl2-slide 
+유튜브: http://bit.ly/homl2-youtube
+인프런: https://www.inflearn.com/course/핸즈온-머신러닝

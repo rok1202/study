@@ -1,0 +1,244 @@
+man ls
+
+어떤 작업을 하시든 반드시 아래와 같이
+cd 엔터
+/root
+/home
+mkdir /home/bigdata
+cd /home/bigdata
+ 다운로드 받고 작업
+pwd
+cd /usr/net
+pwd 
+/usr/man
+cd ../net
+
+cd /var/l 탭2
+
+ls -l
+-rwxrwxrwx 
+rwx owner
+rwx group
+rwx other
+퍼미션
+
+which ls
+/bin/ls
+
+ls -l /bin/ls
+-rwxr-xr-x root root
+chmod 644 /bin/ls
+ls -l /bin/ls
+chmod 755 /bin/ls
+ls -l /bin/ls
+which cat
+/usr/bin/cat
+chmod 644 /usr/bin/cat
+ls -l /usr/bin/cat
+-rw-r--r--
+chmod 111 /usr/bin/cat
+ls -l /usr/bin/cat
+cat /etc/passwd
+chmod 644 /usr/bin/cat
+cat /etc/passwd
+chmod 755 /usr/bin/cat
+ls -l /usr/bin/cat
+-rwx -r-x r-x 
+ 421 421 421
+
+반드시 파일 내 수정을 할경우 해당 라인을 복사해서 사용을 하세요
+설정 파일도 반드시 복사해서 사용하세요
+
+tail -f /var/log/messages
+ELK stack 기반으로 구축 실습
+
+ln 
+cd
+cp /etc/passwd /root
+pwd
+ln passwd passwd1  하드링크
+ln -s passwd passwd2  소프트(심볼릭 링크)
+ls 
+passwd passwd1 passwd2
+ls -i
+
+df -Th
+cd /
+du -h --max-depth=1 /
+
+ps -ef | grep http
+ps aux | grep rsys
+
+kill -l  
+64개의 시그널이 존재
+kill의 의미는 pid에서 시그널 넘버를 전송
+kill pid를 입력하면 kill 명령어에 내장된 시그널 넘버인 15번을 pid에게 전송
+kill -9 pid
+
+압축과 해제
+
+cd 엔터
+mkdir example
+cd example
+tar cvzf aaa.tar.gz /etc/passwd /etc/services /var/log/messages /root
+tar cvjf bbb.tar.bz2 /etc/passwd /etc/services /var/log/messages /root
+tar cvJf ccc.tar.xz /etc/passwd /etc/services /var/log/messages /root
+ls -s
+
+cd example
+mkdir a b c
+tar xvzf  aaa.tar.gz -C a
+tar xvjf  bbb.tar.bz2 -C b
+tar xvjf  ccc.tar.xz -C c
+gunzip file명.zip
+
+cd 엔터
+vi passwd
+ls -a 
+rm -f passwd.swp passwd.swo
+vi passwd
+
+shift+g
+gg
+10dd
+esc
+u
+10yy p
+u
+i
+esc
+a
+esc
+o
+esc
+I
+esc
+A
+esc
+O
+esc
+:20
+/root
+
+:1,$s/root/toot/g
+u
+! ls -a
+
+:new passwd1
+:vs .bashrc
+ctrlww
+10yy
+ctrlww
+p
+
+vi .vimrc
+
+스페이스키 
+탭키
+cd 엔터
+vi passwd
+i 탭
+esc
+gnome-desktop
+gedit /root/passwd
+
+HADOOP_HOME=/home/hadoop
+env
+echo $HOME
+
+cd 엔터
+cp /etc/passwd /root/passwd3
+echo 0 > /root/passwd1
+echo 1 >> /root/passwd3
+
+cd 엔터
+vi .bash_profile
+
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+:wq!
+source /root/.bash_profile
+history
+history | grep cat
+!숫자
+
+설치순서
+Elasticsearch
+kibana
+logstash
+filebeat
+
+yum
+
+oracle jdk 1.8
+openjdk
+
+설치 확인
+rpm -qa | grep elaticsearch
+
+rpm -ql elaticsearch
+vi /etc/elasticsearch/elasticsearch.yml
+
+/etc/services
+
+hostname 
+localhost
+ip addr
+lo 127.0.0.1
+enpos 10.0.0.25
+curl http://127.0.0.1:9200
+curl http://localhost:9200
+/etc/hosts
+
+getenforce
+
+임시로
+setenforce 0
+
+vi /etc/sysconfig/selinux
+SELINUX=disabled
+:wq!
+
+hosts => ["localhost:9200"]
+
+filebeat
+- input_type: log paths: 
+- /var/log/messages
+
+curl localhost:9200/_cat/indices?v
+
+
+5044
+5601
+9200
+
+https://classicismist.blogspot.com/2020/01/centos7-elk-stack-filebeat-logstash.html
+
+/var/log/messages
+filebeat
+logstash
+elasticsearch
+kibana
+==>> main pipeline
+
+logstash에 csv 파일으로 로딩해서 
+elasticsearch -> kibana
+bitcoin.csv
+==> 또하나의 파이프라인을 설정해서
+별도의 인덱스로 elasticsearch 저장
+
+
+csv 파일은 curl xput을 이용해서 
+직접 elasticsearch 저장 가능
+
+
+
+
+
+
+
+
+
+
+
+

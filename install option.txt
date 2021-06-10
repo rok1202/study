@@ -1,0 +1,6 @@
+Mariadb : 10.4.18
+Elasticsearch : 7.12
+Tomcat : 7.0.76.0
+Apache : 2.4.6
+
+JAVA : java-1.8.0-openjdk-1.8.0.282.b08-1.el7_9.x86_64

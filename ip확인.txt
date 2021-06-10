@@ -1,0 +1,95 @@
+>cd /etc/httpd/conf.d
+
+> vi httpd-vhost.conf
+
+<VirtualHost *:80>
+   ServerName localhost
+   DocumentRoot "/var/www/html"
+   <Directory "/var/www/html">
+      DirectoryIndex index.html index.htm index.php
+      Require all granted
+   </Directory>
+</VirtualHost>
+
+
+>  vi /etc/yum.repos.d/mongodb.repo
+
+[MongoDB]
+name=MongoDB Repository
+baseurl=http://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/$basearch/
+
+
+yum install mongodb-org
+
+>iptables -L
+ip 리스트
+
+>iptables -F
+ip Flush
+
+SELinumx
+> #sestatus
+  disable
+
+
+-# seenforce disable
+
+linux(V-box)			window(host)
+ifconfig				ipconfig
+ping(win)				ping(linux)
+
+
+
+
+cd /etc/httpd/conf.d
+
+> vi httpd-vhost.conf
+
+<VirtualHost *:80>
+   ServerName localhost
+   DocumentRoot "/var/www/html"
+   <Directory "/var/www/html">
+      DirectoryIndex index.html index.htm index.php
+      Require all granted
+   </Directory>
+</VirtualHost>
+
+
+>  vi /etc/yum.repos.d/mongodb.repo
+
+[MongoDB]
+name=MongoDB Repository
+baseurl=http://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.2/$basearch/
+
+
+yum install mongodb-org
+
+>iptables -L
+ip 리스트
+
+>iptables -F
+ip Flush
+
+SELinumx
+> #sestatus
+  disable
+
+
+<?php
+  phpinfo();
+?>
+
+-# seenforce disable
+
+linux(V-box)			window(host)
+ifconfig				ipconfig
+ping(win)				ping(linux)
+
+cd /var/www/html
+<?php
+  phpinfo();
+?>
+
+
+
+

@@ -1,0 +1,32 @@
+1. 커멘드 sudo vim /etc/sysconfig/network-scripts/ifcfg-enp0s3 입력.
+
+2. 작성되어있는 문서 중 다음과 같이 수정 및 작성.
+
+BOOTPROTO="static"	>> static으로 수정.
+
+<아래 부분은 맨 아랫줄에 작성>
+
+IPADDR=10.0.2.16
+NETMASK=255.255.255.0
+GATEWAY=10.0.2.2
+DNS1=8.8.8.8
+DNS2=8.8.4.4
+
+
+3. VirtualBox 설정 -> 네트워크 -> 고급 -> 포트 포워딩 클릭.
+
+[x]닫기 표시 밑에 [+] 버튼 클릭.
+
+이름 : 아무렇게나 작성해도 됨.
+프로토콜 : TCP
+호스트IP : 0.0.0.0
+호스트 포트 : 22
+게스트 IP : 10.0.2.16
+게스트 포트 : 22
+
+
+mv jdk-8u131-linux-x64.rpm\?AuthParam\=1495957368_9164317af788b0392a02d2334b6dc573 jdk-8u131-linux-x64.rpm
+
+mv jdk-16_linux-x64_bin.rpm\?AuthParam\=1618831761_83a5860f3a123535794b83c7a7888d5f jdk-16_linux-x64_bin.rpm
+
+firewall-cmd --permanent --zone=public --add-port=80/tcp

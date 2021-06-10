@@ -1,0 +1,21 @@
+☆★작성자: 양재옥★☆
+
+
+###kafka
+
+1. kafka 다운로드 후 압축해제, 심볼릭 링크 생성
+wget https://downloads.apache.org/kafka/2.4.1/kafka_2.13-2.4.1.tgz
+tar -xvzf kafka_2.13-2.4.1.tgz
+ln -s kafka_2.13-2.4.1 kafka
+
+2. kafka 시작(우린ㄴ cluster가 없으므로 환경설정 X)
+./kafka-server-start.sh ../config/server.properties
+
+3. topic생성
+3-1) topic 생성
+./kafka-topics.sh --create --zookeeper hadoop01:2181 --replication-factor 1 --partitions 1 --topic test_1
+3-2) 생성한 topic 확인
+./kafka-topics.sh --list --zookeeper hadoop01:2181
+3-3) proucer 메시지 생산 & consumer 메시지 소비
+./kafka-console-producer.sh --broker-list hadoop01:9092 -topic test_1
+./kafka-console-consumer.sh --bootstrap-server hadoop01:9092 --topic test_1 --from-beginning
